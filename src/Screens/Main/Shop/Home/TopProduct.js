@@ -9,14 +9,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import sp1 from '../../../../Assets/temp/sp1.jpeg';
-import sp2 from '../../../../Assets/temp/sp2.jpeg';
-import sp3 from '../../../../Assets/temp/sp3.jpeg';
-import sp4 from '../../../../Assets/temp/sp4.jpeg';
-
 export default class TopProduct extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      productsData: [],
+    };
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    fetch('http://192.168.0.104:3000/api/products')
+      .then((res) => res.json())
+      .then((resJson) => {
+        this.setState({productsData: resJson});
+      })
+      .catch((err) => console.log(err));
+  }
   render() {
+    const url = 'http://192.168.0.104:3000/images/product/';
     const {navigation} = this.props;
+    const {productsData} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />
@@ -24,7 +38,20 @@ export default class TopProduct extends React.Component {
           <Text style={styles.header_title}>TOP PRODUCT</Text>
         </View>
         <View style={styles.body_view}>
-          <TouchableOpacity
+          {productsData.map((data) => (
+            <TouchableOpacity
+              key={data.id}
+              style={styles.body_product}
+              onPress={() => navigation.navigate('ProductDetail')}>
+              <Image
+                source={{uri: `${url}${data.images}`}}
+                style={styles.body_img}
+              />
+              <Text style={styles.body_title}>{data.name.toUpperCase()}</Text>
+              <Text style={styles.body_price}>{data.price}$</Text>
+            </TouchableOpacity>
+          ))}
+          {/* <TouchableOpacity
             style={styles.body_product}
             onPress={() => navigation.navigate('ProductDetail')}>
             <Image source={sp1} style={styles.body_img} />
@@ -51,7 +78,7 @@ export default class TopProduct extends React.Component {
             <Image source={sp4} style={styles.body_img} />
             <Text style={styles.body_title}>CONTRATS EMBRO</Text>
             <Text style={styles.body_price}>121$</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     );
