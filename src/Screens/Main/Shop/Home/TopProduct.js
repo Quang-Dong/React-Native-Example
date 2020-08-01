@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 
 export default class TopProduct extends React.Component {
   constructor(props) {
@@ -15,22 +16,25 @@ export default class TopProduct extends React.Component {
 
     this.state = {
       productsData: [],
+      ip1: '192.168.0.104',
+      ip2: '10.82.185.40',
     };
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
-    fetch('http://192.168.0.104:3000/api/products')
+    fetch(`http://${this.state.ip1}:3000/api/products`)
       .then((res) => res.json())
       .then((resJson) => {
         this.setState({productsData: resJson});
       })
       .catch((err) => console.log(err));
   }
+
   render() {
-    const url = 'http://192.168.0.104:3000/images/product/';
     const {navigation} = this.props;
-    const {productsData} = this.state;
+    const {productsData, ip1, ip2} = this.state;
+    const url = `http://${ip1}:3000/images/product/`;
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />
@@ -42,43 +46,15 @@ export default class TopProduct extends React.Component {
             <TouchableOpacity
               key={data.id}
               style={styles.body_product}
-              onPress={() => navigation.navigate('ProductDetail')}>
+              onPress={() => navigation.navigate('ProductDetail', {data})}>
               <Image
-                source={{uri: `${url}${data.images}`}}
+                source={{uri: `${url}${data.image1}`}}
                 style={styles.body_img}
               />
               <Text style={styles.body_title}>{data.name.toUpperCase()}</Text>
               <Text style={styles.body_price}>{data.price}$</Text>
             </TouchableOpacity>
           ))}
-          {/* <TouchableOpacity
-            style={styles.body_product}
-            onPress={() => navigation.navigate('ProductDetail')}>
-            <Image source={sp1} style={styles.body_img} />
-            <Text style={styles.body_title}>BLACK OFF THE</Text>
-            <Text style={styles.body_price}>124$</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.body_product}
-            onPress={() => navigation.navigate('ProductDetail')}>
-            <Image source={sp2} style={styles.body_img} />
-            <Text style={styles.body_title}>CONTRATS EMBRO</Text>
-            <Text style={styles.body_price}>121$</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.body_product}
-            onPress={() => navigation.navigate('ProductDetail')}>
-            <Image source={sp3} style={styles.body_img} />
-            <Text style={styles.body_title}>BLACK OFF THE</Text>
-            <Text style={styles.body_price}>124$</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.body_product}
-            onPress={() => navigation.navigate('ProductDetail')}>
-            <Image source={sp4} style={styles.body_img} />
-            <Text style={styles.body_title}>CONTRATS EMBRO</Text>
-            <Text style={styles.body_price}>121$</Text>
-          </TouchableOpacity> */}
         </View>
       </View>
     );

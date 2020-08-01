@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import profile from '../../Assets/temp/profile.png';
+import profile from '../../../Assets/temp/profile.png';
 
 export default class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
     };
   }
 

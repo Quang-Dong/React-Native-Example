@@ -4,20 +4,10 @@ import * as React from 'react';
 import {View, StatusBar} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import MainScreen from './Screens/Main/Main';
-import AuthenticationScreen from './Screens/Authentication/Authentication';
-import SignInScreen from './Screens/Authentication/SignIn';
-import SignUpScreen from './Screens/Authentication/SignUp';
-import ChangeInfoScreen from './Screens/ChangeInfo/ChangeInfo';
-import OrderHistoryScreen from './Screens/OrderHistory/OrderHistory';
-import Menu from './Screens/Main/Menu';
-
-import HeaderScreen from './Screens/Main/Shop/Header';
+import Menu from './Screens/Main/Menu/Menu';
 
 export default class App extends React.Component {
   render() {

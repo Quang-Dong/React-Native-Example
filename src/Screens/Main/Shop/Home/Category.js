@@ -22,22 +22,25 @@ export default class Category extends React.Component {
 
     this.state = {
       typesData: [],
+      ip1: '192.168.0.104',
+      ip2: '10.82.185.40',
     };
   }
 
   componentDidMount() {
-    fetch('http://192.168.0.104:3000/api/types')
+    fetch(`http://${this.state.ip1}:3000/api/types`)
       .then((res) => res.json())
       .then((resJson) => {
         this.setState({typesData: resJson});
+        console.log(resJson.map((e) => e.image));
       })
       .catch((err) => console.log(err));
   }
 
   render() {
     const {navigation} = this.props;
-    const {typesData} = this.state;
-    const url = 'http://192.168.0.104:3000/images/type/';
+    const {typesData, ip1, ip2} = this.state;
+    const url = `http://${ip1}:3000/images/type/`;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />

@@ -69,7 +69,14 @@ export default class Main extends React.Component {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="ChangeInfo" component={ChangeInfoScreen} />
           <Stack.Screen name="OrderHistory" component={OrderHistoryScreen} />
-          <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetailScreen}
+            options={{
+              title: '',
+              headerStyle: {elevation: 0},
+            }}
+          />
           <Stack.Screen name="ProductList" component={ProductListScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
         </Stack.Navigator>
