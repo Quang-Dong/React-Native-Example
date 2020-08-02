@@ -2,19 +2,18 @@ import React, {Component} from 'react';
 import {View, Text, StatusBar, Dimensions} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Icon_Ion from 'react-native-vector-icons/Ionicons';
-import Icon_Ant from 'react-native-vector-icons/AntDesign';
-
 import HomeScreen from './Home/Home';
 import CartScreen from './Cart/Cart';
 import SearchScreen from './Search/Search';
 import ContactScreen from './Contact/Contact';
 import HeaderScreen from './Header';
 
-const {height, width} = Dimensions.get('window');
+import {wp, hp} from '../../../lib/responsive';
 
-const stWidth = 540; //Standard Width
-const stHeight = 936; // Standard Height
+import Icon_Ion from 'react-native-vector-icons/Ionicons';
+import Icon_Ant from 'react-native-vector-icons/AntDesign';
+
+const {height, width} = Dimensions.get('window');
 
 function IconWithBadge({name, badgeCount, size, color}) {
   return (
@@ -25,12 +24,12 @@ function IconWithBadge({name, badgeCount, size, color}) {
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
             position: 'absolute',
-            right: (-10 / stWidth) * stWidth,
-            top: (-4 / stHeight) * height,
+            right: wp(-10),
+            top: hp(-4),
             backgroundColor: '#00a8ff',
-            borderRadius: (15 / stWidth) * stWidth,
-            width: (15 / stWidth) * width,
-            height: (15 / stHeight) * height,
+            borderRadius: wp(15),
+            width: wp(15),
+            height: hp(15),
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -38,7 +37,7 @@ function IconWithBadge({name, badgeCount, size, color}) {
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
               color: 'white',
-              fontSize: (14 / stWidth) * width,
+              fontSize: wp(14),
               fontWeight: 'bold',
             }}>
             {badgeCount}
@@ -67,8 +66,9 @@ export default class Shop extends React.Component {
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />
         <HeaderScreen openMenu={() => this._openMenu()} />
         <Tab.Navigator
+          initialRouteName="Home"
           screenOptions={({route}) => ({
-            tabBarIcon: ({size1 = (35 / stWidth) * width, color}) => {
+            tabBarIcon: ({size1 = wp(35), color}) => {
               if (route.name === 'Cart') {
                 return (
                   <CartIconWithBadge
@@ -87,9 +87,11 @@ export default class Shop extends React.Component {
             },
           })}
           tabBarOptions={{
+            labelStyle: {fontSize: wp(10)},
+            labelPosition: 'below-icon',
             activeTintColor: '#34B089',
             inactiveTintColor: 'gray',
-            style: {height: (65 / stHeight) * height},
+            style: {height: hp(65)},
           }}>
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Cart" component={CartScreen} />

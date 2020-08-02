@@ -11,10 +11,8 @@ import {
 
 import banner from '../../../../Assets/temp/banner.jpg';
 
-const {height, width} = Dimensions.get('window');
-
-const stWidth = 540;
-const stHeight = 936;
+import {wp, hp} from '../../../../lib/responsive';
+const {width, height} = Dimensions.get('window');
 
 export default class Collection extends React.Component {
   render() {
@@ -24,13 +22,26 @@ export default class Collection extends React.Component {
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />
         <View
-          style={{flex: (0.7 / stHeight) * height, justifyContent: 'center'}}>
+          style={{
+            height: hp(30),
+            justifyContent: 'center',
+          }}>
           <Text style={styles.header_title}>SPRING COLLECTION</Text>
         </View>
         <TouchableOpacity
-          style={{flex: (4.3 / stHeight) * height}}
+          style={{
+            height: hp(220),
+            width: wp(width - wp(20)),
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+          }}
           onPress={() => navigation.navigate('ProductList')}>
-          <Image source={banner} style={styles.body_banner} />
+          <Image
+            source={banner}
+            resizeMode="contain"
+            style={styles.body_banner}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -39,20 +50,19 @@ export default class Collection extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    height: (310 / stHeight) * height,
-    marginVertical: (7 / stHeight) * height,
-    borderRadius: (5 / stHeight) * height,
+    backgroundColor: 'white',
+    height: hp(250),
+    marginVertical: hp(5),
+    borderRadius: wp(5),
   },
   header_title: {
-    fontSize: (20 / stHeight) * height,
+    fontSize: wp(20),
     color: '#A9A9A9',
-    marginLeft: (10 / stWidth) * width,
+    marginLeft: wp(10),
   },
   body_banner: {
-    height: (255 / stHeight) * height,
-    width: width - (20 / stWidth) * width,
-    alignSelf: 'center',
-    borderRadius: (5 / stHeight) * height,
+    height: '100%',
+    width: '100%',
+    borderRadius: wp(5),
   },
 });

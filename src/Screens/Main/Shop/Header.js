@@ -4,7 +4,6 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
-  Button,
   StyleSheet,
   Image,
   TextInput,
@@ -14,6 +13,8 @@ import {
 import ic_menu from '../../../Assets/appIcon/ic_menu.png';
 import ic_logo from '../../../Assets/appIcon/ic_logo.png';
 
+import {wp, hp} from '../../../lib/responsive';
+
 const {height, width} = Dimensions.get('window');
 
 export default class Header extends React.Component {
@@ -22,7 +23,7 @@ export default class Header extends React.Component {
     this.state = {
       /* initial state */
     };
-    console.log(`Size màn hình: ` + `Rộng: ` + width + ` Dài: ` + height);
+    console.log('Size màn hình: ' + 'Rộng: ' + width + ' Dài: ' + height);
   }
 
   render() {
@@ -42,35 +43,34 @@ export default class Header extends React.Component {
   }
 }
 
-const stWidth = 540; //Standard Width
-const stHeight = 936; // Standard Height
-
 const styles = StyleSheet.create({
   wrapper: {
-    height: (117 / stHeight) * height,
+    height: hp(100),
     backgroundColor: '#34B089',
     justifyContent: 'space-around',
-    padding: (10 / stWidth) * width,
+    paddingHorizontal: wp(10),
+    paddingBottom: wp(5),
   },
   header_row1: {
     flexDirection: 'row',
+    height: hp(40),
     justifyContent: 'space-between',
   },
   header_title: {
     color: 'white',
-    fontSize: (25 / stWidth) * width,
+    fontSize: wp(25),
     fontFamily: 'Avenir',
   },
   header_txtInput: {
-    height: (40 / stHeight) * height,
+    height: hp(40),
     backgroundColor: 'white',
-    paddingHorizontal: (10 / stWidth) * width,
-    paddingVertical: (10 / stHeight) * height,
+    padding: wp(10),
     color: 'black',
-    borderRadius: (5 / stHeight) * height,
+    fontSize: wp(12),
+    borderRadius: hp(5),
   },
   header_icon: {
-    width: (40 / stWidth) * width,
-    height: (40 / stHeight) * height,
+    width: wp(40),
+    height: hp(40),
   },
 });

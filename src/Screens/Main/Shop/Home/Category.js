@@ -9,12 +9,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {wp, hp} from '../../../../lib/responsive';
+const {width, height} = Dimensions.get('window');
+
 import Swiper from 'react-native-swiper';
-
-const {height, width} = Dimensions.get('window');
-
-const stWidth = 540;
-const stHeight = 936;
 
 export default class Category extends React.Component {
   constructor(props) {
@@ -32,7 +30,6 @@ export default class Category extends React.Component {
       .then((res) => res.json())
       .then((resJson) => {
         this.setState({typesData: resJson});
-        console.log(resJson.map((e) => e.image));
       })
       .catch((err) => console.log(err));
   }
@@ -41,28 +38,41 @@ export default class Category extends React.Component {
     const {navigation} = this.props;
     const {typesData, ip1, ip2} = this.state;
     const url = `http://${ip1}:3000/images/type/`;
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#34B089" />
         <View
-          style={{flex: (0.7 / stHeight) * height, justifyContent: 'center'}}>
+          style={{
+            height: hp(30),
+            justifyContent: 'center',
+          }}>
           <Text style={styles.header_title}>LIST OF CATEGORY</Text>
         </View>
-        <View style={{flex: (4.3 / stHeight) * height, alignItems: 'center'}}>
-          <Swiper width={width - (20 / stWidth) * width}>
-            {typesData.map((data) => (
-              <TouchableOpacity
-                key={data.id}
-                onPress={() => navigation.navigate('ProductList')}>
-                <ImageBackground
-                  source={{uri: `${url}${data.image}`}}
-                  style={styles.body_banner}>
-                  <Text style={styles.body_txt}>{data.name}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            ))}
-          </Swiper>
-        </View>
+        <Swiper
+          containerStyle={{
+            alignSelf: 'center',
+            width: wp(width - 20),
+            height: hp(220),
+          }}>
+          {typesData.map((data) => (
+            <TouchableOpacity
+              key={data.id}
+              onPress={() => navigation.navigate('ProductList')}>
+              <ImageBackground
+                source={{uri: `${url}${data.image}`}}
+                resizeMode="contain"
+                style={{
+                  height: '100%',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={styles.body_txt}>{data.name}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          ))}
+        </Swiper>
       </View>
     );
   }
@@ -70,24 +80,18 @@ export default class Category extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    height: (310 / stHeight) * height,
-    marginVertical: (7 / stHeight) * height,
-    borderRadius: (5 / stHeight) * height,
+    backgroundColor: 'white',
+    height: hp(250),
+    marginVertical: hp(7),
+    borderRadius: wp(5),
   },
   header_title: {
-    fontSize: (20 / stHeight) * height,
+    fontSize: wp(20),
     color: '#A9A9A9',
-    marginLeft: (10 / stWidth) * width,
-  },
-  body_banner: {
-    height: (255 / stHeight) * height,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: wp(10),
   },
   body_txt: {
-    fontSize: (25 / stWidth) * width,
+    fontSize: wp(25),
     color: '#9A9A9A',
   },
 });

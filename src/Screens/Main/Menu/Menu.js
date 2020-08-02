@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import profile from '../../../Assets/temp/profile.png';
+import {wp, hp} from '../../../lib/responsive';
+const {height, width} = Dimensions.get('window');
 
 export default class Menu extends React.Component {
   constructor(props) {
@@ -66,47 +68,42 @@ export default class Menu extends React.Component {
   }
 }
 
-const {height, width} = Dimensions.get('window');
-
-const stHeight = 936;
-const stWidth = 540;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#34B089',
-    padding: (10 / stWidth) * width,
+    padding: wp(10),
   },
   menu_view: {
     flex: 1,
   },
   header_img: {
-    height: (150 / stHeight) * height,
-    width: (150 / stWidth) * width,
-    borderRadius: (150 / stWidth) * width,
+    height: hp(150),
+    width: wp(150),
+    borderRadius: wp(150),
     alignSelf: 'center',
   },
   header_txt: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: (23 / stHeight) * height,
-    padding: (10 / stWidth) * width,
-    marginBottom: (35 / stHeight) * height,
+    fontSize: hp(23),
+    padding: wp(10),
+    marginBottom: hp(35),
   },
 
   body_view: {
-    marginTop: (35 / stHeight) * height,
+    marginTop: hp(35),
   },
 
   body_item: {
     backgroundColor: 'white',
-    marginBottom: (10 / stHeight) * height,
-    borderRadius: (10 / stWidth) * width,
+    marginBottom: hp(10),
+    borderRadius: hp(10),
     justifyContent: 'center',
   },
   body_item_txt: {
     color: '#34B089',
-    margin: (15 / stWidth) * width,
-    fontSize: (20 / stHeight) * height,
+    margin: wp(15),
+    fontSize: wp(20),
   },
 });

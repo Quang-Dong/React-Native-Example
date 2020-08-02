@@ -7,8 +7,11 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+
+import {wp, hp} from '../../../../lib/responsive';
+const {width, height} = Dimensions.get('window');
 
 export default class TopProduct extends React.Component {
   constructor(props) {
@@ -42,12 +45,32 @@ export default class TopProduct extends React.Component {
           <Text style={styles.header_title}>TOP PRODUCT</Text>
         </View>
         <View style={styles.body_view}>
+          {/* <FlatList
+            data={productsData}
+            renderItem={({item}) => {
+              <TouchableOpacity
+                key={item.id}
+                style={styles.body_product}
+                onPress={() => navigation.navigate('ProductDetail', {item})}>
+                <Image
+                  resizeMode="contain"
+                  source={{uri: `${url}${item.image1}`}}
+                  style={styles.body_img}
+                />
+                <Text style={styles.body_title}>{item.name.toUpperCase()}</Text>
+                <Text style={styles.body_price}>{item.price}$</Text>
+              </TouchableOpacity>;
+            }}
+            keyExtractor={(item) => item.id}
+          /> */}
+
           {productsData.map((data) => (
             <TouchableOpacity
               key={data.id}
               style={styles.body_product}
               onPress={() => navigation.navigate('ProductDetail', {data})}>
               <Image
+                resizeMode="contain"
                 source={{uri: `${url}${data.image1}`}}
                 style={styles.body_img}
               />
@@ -61,53 +84,46 @@ export default class TopProduct extends React.Component {
   }
 }
 
-const {height, width} = Dimensions.get('window');
-
-const stWidth = 540;
-const stHeight = 936;
-
-const imgWidth = (width - (45 / stWidth) * width) / 2;
-const imgHeight = (imgWidth / 361) * 452; //361 và 452 là kích thước gốc CỦA ẢNH.
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
-    marginVertical: (7 / stHeight) * height,
-    borderRadius: (5 / stHeight) * height,
+    backgroundColor: 'white',
+    marginVertical: hp(7),
+    borderRadius: wp(5),
   },
   header_view: {
-    flex: (0.7 / stHeight) * height,
+    height: hp(30),
     justifyContent: 'center',
-    paddingVertical: (6 / stHeight) * height,
+    paddingVertical: hp(6),
   },
   header_title: {
-    fontSize: (20 / stHeight) * height,
+    fontSize: wp(20),
     color: '#A9A9A9',
-    marginLeft: (10 / stWidth) * width,
+    marginLeft: wp(10),
   },
   body_view: {
-    flex: (4.3 / stHeight) * height,
     flexDirection: 'row',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
   },
   body_product: {
-    width: imgWidth,
+    height: hp(300),
+    width: (width - wp(45)) / 2,
     alignItems: 'center',
+    marginTop: hp(10),
   },
   body_img: {
-    height: imgHeight,
-    width: imgWidth,
+    height: hp(225),
+    width: '100%',
     alignSelf: 'center',
-    borderRadius: (5 / stHeight) * height,
+    borderRadius: wp(5),
   },
   body_title: {
-    fontSize: (20 / stHeight) * height,
+    height: hp(30),
+    fontSize: wp(20),
     color: '#A9A9A9',
   },
   body_price: {
-    fontSize: (20 / stHeight) * height,
+    fontSize: wp(20),
     color: '#D1527F',
-    marginBottom: (10 / stWidth) * width,
   },
 });
